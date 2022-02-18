@@ -1,7 +1,12 @@
-import { useState } from "react"
+import { atom, useRecoilState, useRecoilValue } from 'recoil'
+
+const darkModeAtom = atom({
+  key: 'darkMode',
+  default: false
+})
 
 const DarkModeSwitch = () => {
-  const [darkMode, setDarkMode] = useState(false)
+  const [darkMode, setDarkMode] = useRecoilState(darkModeAtom)
 
   return (
     <input
@@ -14,12 +19,17 @@ const DarkModeSwitch = () => {
 }
 
 const Button = () => {
-  const [darkMode, setDarkMode] = useState(false)
+  const darkMode = useRecoilValue(darkModeAtom)
+  const style = {
+    backgroundColor: darkMode ? 'black' : 'white',
+    color: darkMode ? 'white' : 'black'
+  }
 
-  return <button style={{
-    backGroundColor: darkMode ? 'black' : 'white',
-    color: darkMode ? 'white' : black
-  }}> My UI Button</button >
+  return (
+    <button style={
+      style
+    }> My UI Button</button >
+  )
 }
 
 export const Atoms = () => {
